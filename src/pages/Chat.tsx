@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ChatInput } from "../components/ChatInput";
 import { ChatMessages } from "../components/ChatMessages";
 import { Input } from "../components/Input";
-import {sendMessageAPI} from "../utils/api";
+import {sendMessageAPI, receiveMessagesAPI, deleteNotificationAPI} from "../utils/api";
 
 interface Message {
     sender: string;
@@ -22,6 +22,21 @@ const Chat = ({ idInstance, apiTokenInstance }: { idInstance: string; apiTokenIn
             console.error("Error sending message:", error);
         }
     };
+
+    useEffect(() => {
+        const interval = setInterval(async () => {
+            try {
+                const data = await receiveMessagesAPI(idInstance, apiTokenInstance);
+                if (data?.body?.messageData?.textMessageData?.textMessage) {
+                    setChat((prevChat) => [...prevChat, { sender: "other", text: data.body.messageData.textMessageData.textMessage }]);
+                    await deleteNotificationAPI(idInstance, apiTokenInstance, data.receiptId);
+                }
+            } catch (error) {
+                console.error("Error receiving message:", error);
+            }
+        }, 15000);
+        return () => clearInterval(interval);
+    }, [idInstance, apiTokenInstance]);
 
     return (
         <div>

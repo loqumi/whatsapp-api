@@ -7,3 +7,15 @@ export async function sendMessageAPI(idInstance: string, apiTokenInstance: strin
         body: JSON.stringify(payload),
     });
 }
+
+export async function receiveMessagesAPI(idInstance: string, apiTokenInstance: string) {
+    const url = `https://api.green-api.com/waInstance${idInstance}/receiveNotification/${apiTokenInstance}`;
+    return fetch(url).then((response) => response.json());
+}
+
+export async function deleteNotificationAPI(idInstance: string, apiTokenInstance: string, data: number) {
+    const url = `https://api.green-api.com/waInstance${idInstance}/deleteNotification/${apiTokenInstance}/${data}`;
+    return fetch(url, {
+        method: "DELETE",
+    })
+}
