@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AuthPage from "./pages/Auth";
+import Chat from "./pages/Chat";
 
 export default function App() {
     const [idInstance, setIdInstance] = useState<string | null>(localStorage.getItem("idInstance"));
@@ -9,5 +10,5 @@ export default function App() {
         return <AuthPage onAuth={(id, token) => { setIdInstance(id); setApiTokenInstance(token); }} />;
     }
 
-    return <div>chat</div>;
+    return <Chat idInstance={idInstance} apiTokenInstance={apiTokenInstance} />;
 }
