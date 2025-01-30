@@ -26,6 +26,21 @@ const Chat = ({ idInstance, apiTokenInstance }: { idInstance: string; apiTokenIn
     };
 
     useEffect(() => {
+        const interval = setInterval(async () => {
+            try {
+                const data = await receiveMessagesAPI(idInstance, apiTokenInstance);
+                if (data?.body?.messageData?.textMessageData?.textMessage) {
+                    setChat((prevChat) => [...prevChat, { sender: "other", text: data.body.messageData.textMessageData.textMessage }]);
+                    await deleteNotificationAPI(idInstance, apiTokenInstance, data.receiptId);
+                }
+            } catch (error) {
+                console.error("Error receiving message:", error);
+            }
+        }, 5000);
+        return () => clearInterval(interval);
+    }, [idInstance, apiTokenInstance]);
+
+    useEffect(() => {
         setChat([])
     }, [debouncedPhoneNumber]);
 

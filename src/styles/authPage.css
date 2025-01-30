@@ -1,0 +1,35 @@
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    height: 100vh;
+    justify-content: center;
+    margin: auto auto;
+    gap: 16px;
+    padding: 0 24px;
+
+    h1 {
+        text-align: center;
+        margin: 0;
+        font-size: 32px;
+        color: white;
+    }
+
+    input {
+        border: 1px solid white;
+        border-radius: 8px;
+        height: 42px;
+        color: black;
+        font-size: 16px;
+        padding: 0 15px;
+    }
+
+    button {
+        background: #0cc144;
+        border: none;
+        height: 42px;
+        border-radius: 8px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+}
