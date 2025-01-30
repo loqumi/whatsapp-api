@@ -4,6 +4,7 @@ import { ChatMessages } from "../components/ChatMessages";
 import { Input } from "../components/Input";
 import { useDebounce } from "@uidotdev/usehooks";
 import {sendMessageAPI, receiveMessagesAPI, deleteNotificationAPI} from "../utils/api";
+import '../styles/chatPage.css'
 
 interface Message {
     sender: string;
@@ -45,10 +46,15 @@ const Chat = ({ idInstance, apiTokenInstance }: { idInstance: string; apiTokenIn
     }, [debouncedPhoneNumber]);
 
     return (
-        <div>
-            <Input placeholder="Recipient Phone Number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
-            <ChatMessages chat={chat} />
-            <ChatInput onSend={sendMessage} />
+        <div className="chat-page">
+            <div className="header">
+                <div className="avatar"></div>
+                <Input placeholder="Recipient Phone Number" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+            </div>
+            <div className="chat-container">
+                <ChatMessages chat={chat} />
+                <ChatInput onSend={sendMessage} />
+            </div>
         </div>
     );
 }

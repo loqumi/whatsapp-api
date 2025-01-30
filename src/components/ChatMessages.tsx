@@ -11,9 +11,9 @@ interface ChatMessagesProps {
 
 export function ChatMessages({ chat }: ChatMessagesProps) {
     return (
-        <div className="border p-2 h-60 overflow-auto my-2 rounded-md bg-gray-100">
+        <div className="chat-messages">
             {chat.map((msg, index) => (
-                <div key={index} className={`my-1 p-2 rounded-lg ${msg.sender === "me" ? "bg-blue-300 ml-auto" : "bg-gray-300"}`}>
+                <div key={index} className={`message ${msg.sender === "me" ? "messages-output" : "messages-input"}`}>
                     {msg.text}
                 </div>
             ))}
