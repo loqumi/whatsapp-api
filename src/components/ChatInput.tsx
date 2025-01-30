@@ -16,7 +16,7 @@ export function ChatInput({ onSend }: ChatInputProps) {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
             />
-            <Button onClick={() => { onSend(message); setMessage(""); }}>Send</Button>
+            <Button disabled={!message} onClick={() => { onSend(message); setMessage(""); }}>Send</Button>
         </div>
     );
 }
